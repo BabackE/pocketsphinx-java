@@ -1,0 +1,6 @@
+.DS_STORE
+.gradle
+build/tmp
+*.a
+*.o
+*.so

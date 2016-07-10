@@ -3,17 +3,6 @@ apply plugin: 'java'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
-dependencies {
-    compile files("${sdkDir}/platforms/android-${sdkVersion}/android.jar")
-}
-
-
-task ndkBuild(type: Exec) {
-    commandLine "${ndkDir}/ndk-build${ndkExt}"
-}
-ndkBuild.outputs.dir "libs"
-ndkBuild.outputs.dir "obj"
-
 task mkdir << {
     new File('build/generated-src/java').mkdirs()
 }
@@ -40,9 +29,6 @@ task swigPs(type: Exec) {
 compileJava.dependsOn mkdir
 compileJava.dependsOn swigSb
 compileJava.dependsOn swigPs
-compileJava.dependsOn ndkBuild
-ndkBuild.dependsOn swigSb
-ndkBuild.dependsOn swigPs
 
 sourceSets {
     main {
@@ -54,4 +40,3 @@ sourceSets {
 
 jar.version = '5prealpha-nolib'
 
-clean.dependsOn cleanNdkBuild
